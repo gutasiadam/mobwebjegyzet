@@ -67,7 +67,7 @@ Több különböző tag, pl.: \<header>, \<nav>, \<aside>, \<section>, \<article
 | ---------------------------------------- | ---------------------------------------------------------------------- |
 | Mindig új sorban jelennek meg.           | Ugyanabban a sorban jeleníti meg, mint amiben az előtte levő elem van. |
 | Csak blokkszintű elembe lehet beágyazni. | Blokkszintű elem tartalmának egy része.                                |
-| pl: **div, p**                           | pl: **span, strong**|                                                                        |
+| pl: **div, p, form**                           | pl: **span, a, img, strong**|                                                                        |
 
 #### Táblázatok
 ![[HTML-table.png]]
@@ -92,10 +92,14 @@ Több különböző tag, pl.: \<header>, \<nav>, \<aside>, \<section>, \<article
 **Legördülő lista**: select
 	- *optgroup*: választható elemek csoportja
 	- *option*: konkrét válaszható elem: 
-<select>
+``` html
+<select> 
 	<option value="alma">Alma</option>
 	<option value="korte">Körte</option>
 </select>
+```
+
+
 **Szűrhető lista**: datalist
 	- Select helyett datalist, de ugyanúgy option-ök vannak.
 
