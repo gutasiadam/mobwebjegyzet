@@ -7,3 +7,6 @@
 4. [[WEB04-Javascript (alapok+haladó)]]
 6. [[WEB05-jQuery, Ajax, jQuery validate, websocket]]
 
+
+---
+*Gincsai Gábor diasorai alapján.*

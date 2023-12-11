@@ -7,7 +7,6 @@ A java és a JavaScript mindenben eltér. A JS:
 - gyengén típusos
 - forráskódból töltődik be, és
 - prototípus alapú objektumokkal rendelkezik.
-
 ### Nyelvi alapok
 A \<script> elemet mindig explicit záró címkével használjuk. Segítségével HTML fájlbe is kerülhet JS kód, bár nem célszerű.
 ![[JS-nyelvi-elemek.png]]
@@ -17,55 +16,52 @@ A \<script> elemet mindig explicit záró címkével használjuk. Segítségéve
 
 - Ha a `var` kulcsszót elhagyjuk, akkor is létrejön a változó, de akkor a **globális névtérben** jön létere.
 
-Létezik **strict mód**, melnyek bekapcsolásával a var elhagyása hibát eredményez.
+Létezik **strict mód**, melnyek bekapcsolásával a `var` elhagyása hibát eredményez.
 
 **Dinamikusan típusos**: nem adunk meg típust.
 **Gyengén típusos**: operátor működése változik a változóban tárolt érték típusától.
 	-  Ha összeadunk két változót, előfordulhat, hogy az egyikben string a másikban pedig number szerepel.
 
-Az == csak az értéket hasonlítja össze, míg az === egyenlőség a típus infót is ellenőrzi.
+Az == csak az értéket hasonlít össze, míg az === egyenlőség a típus infót is ellenőrzi.
 - [!] Ha egy változók értékadás nélkül hozunk létre, akkor az értéke `undefined` lesz, és a típusa is `undefined` lesz.
-- [!] Az **undefined** típua **undefined**
+- [i] Az **undefined** típua **undefined**
 - [!] A **null** viszont egy **Object** 
-
 ##### Konstanok
-Létrehozásakor az **értéket is meg kell adni**
+- `const` kulcsszó.
+- Létrehozásakor az **értéket is meg kell adni**
 ##### Változók láthatósága
-**function scoping:** A `var`-ral létrehozott változók az egész függvényen belül láthatóak
-**block scoping:** A `let`-tel létrehozott változók viszont csak a blokkon belül láthatóak
-
+**function scoping:** A `var`-ral létrehozott változók a<mark style="background: #FFF3A3A6;">z egész függvényen belül </mark>láthatóak
+**block scoping:** A `let`-tel létrehozott változók viszont <mark style="background: #FFF3A3A6;">csak a blokkon belül</mark> láthatóak
 ##### Truthy, Falsey
-**Minden bool-lá** alakítható
+**Minden bool-lá** alakítható!
 **turthy:** `true, '0', 123 , 'valami', [], {}`
 **falsey**: `false, 0, NaN, '', null, undefined`
 Többféleképpen is konvertálhatunk bool-ba:
 ```javascript
-let b_obj = new Boolean(false);// objektum!!
+let b_obj = new Boolean(false); //objektum!!
 let b = false; // primitív
 let b_cast = Boolean(false); // bool kaszt
 let b_cast2 = !!false; // bool kaszt
 ```
 
-- [!] A new Boolean(false) <mark style="background: #FFF3A3A6;">egy objektumot hoz létre!</mark> Emiatt a tagadása (bool-lá alakítása) esetén azt nézi, hogy ez egy *nem üres objektum*.
-
+- [!] A new Boolean(false) <mark style="background: #FFF3A3A6;">egy objektumot hoz létre!</mark> 
+	-  A tagadása (bool-lá alakítása a `!!` operátorral) esetén azt nézi, hogy ez egy *nem üres objektum*.
 ##### Burkolás
 Az egyszerű típusokat **objektumba lehet burkolni**. Nagybetűkkel kezdődnek. 
-	- Ilyenkor ha bool-lá alakítjuk, akkor igaz, vagy hamis értéket kapunk, mert azt nézi, hogy nem üres az objektum.
+	- Ilyenkor ha utána bool-lá alakítjuk, akkor igaz, vagy hamis értéket kapunk, mert azt nézi, hogy üres-e az objektum.
 
-- [!] Mivel minden változó az értékétől függetlenül bool-lá alakítható és mint tudjuk az undefined falsy, ezért azt, hogy egy változónak van-e értéke, egy egyszerű `if(valtozo)`-val tudjuk vizsgálni.
+- [!] Mivel minden változó az értékétől függetlenül bool-lá alakítható és mint tudjuk az `undefined` falsy, ezért azt, hogy egy változónak van-e értéke, egy egyszerű `if(valtozo)`-val tudjuk vizsgálni.
 
 Ha egy változónak csak akkor szeretnénk értéket adni, ha még nincs neki, akkor azt az alábbi kódrészlettel tehetjük meg:
-
 ```js
 let afa;
 let szokasosAfa = 27;
 let afa = afa || szokasosAfa;
 alert(afa); // 27
 ```
-Lényege az, hogy ha nincs megadva az `afa` nak semmi, akkor a `szokasosAfa` is kiértékelúdik, és azt az értéket kapja így meg a változó.
+- [n] Lényege az, hogy ha nincs megadva az `afa` nak semmi, akkor a `szokasosAfa` is kiértékelődik, és azt az értéket kapja így meg a változó.
 
-Hasonló logikával tudjuk elérni azt, hogy kódokat csak **feltételes futtas**sunk. Ehhez a `x && alert('lefutott');` -ot használhatjuk.
-
+Hasonló logikával tudjuk elérni azt, hogy kódrészleteket csak **feltételesen futtas**sunk. Ehhez a `x && alert('lefutott');` -ot használhatjuk.
 #### Tömbök,  függvények
 Tömbök kétféle képpen definiálhatóak, mindkettő esetben **object** típusúként kapjuk vissza őket.
 
@@ -78,16 +74,29 @@ alert( typeof evszakok ); // 'object’
 
 Elem hozzáadása `array.push()`;
 Kivenni az utolsó elemet a `array.pop()`-pal lehet.
-
 ##### `splice(index, howMany [, el1, ... elN])`
 `index`: tömb módosítása ettől az indextől kezdve
 `howMany`: mennyi elemet szeretnénk törölni
 `el1...elN`: (ha van) beszúrandó elem(ek) a tömbbe.
+Visszaadja a törölt elemeket.
 
-##### ciklusok
-`for..in`: az objektumon található tulajdonságok nevén halad végig
-`for..of`: iterátor segítségével veszi sorra a tömb értékeit (kulcs-érték párokat nem olvas ki (?))
+```js
+var szinek = [ 'piros', 'sárga', 'kék' ];
+var toroltek = szinek.splice( 1, 2, 'fehér', 'zöld' );
 
+// Törölt színek
+for( var t in toroltek ) {
+	console.log( toroltek[ t ] ); // Törölt elemek: sárga,kék
+}
+
+// Ami maradt
+for( var sz in szinek ) {
+	console.log( szinek[ sz ] ); // Tömb elemei: piros,fehér,zöld
+}
+```
+##### Ciklusok
+`for..in`: az objektumon található<mark style="background: #FFF3A3A6;"> tulajdonságok nevén halad végig</mark>
+`for..of`: **iterátor** segítségével veszi sorra a tömb értékeit (kulcs-érték párokat nem olvas ki (?))
 ##### Függvények:
 **Nem** lehet megadni a:
 - paraméterek típusát
@@ -96,37 +105,33 @@ Kivenni az utolsó elemet a `array.pop()`-pal lehet.
 **Nem** okoz gondot, ha eltér a híváskor a paraméterek száma a deklarációhoz képest.
 - Kevesebb esetén a nem definiáltak értéke `undefined` lesz.
 - Több esetén figyelmen kívül hagyja.
-- Függvény híváskor a paraméterekre névvel nem lehet hivatkozni, ezért csak a paraméter lista végéről tudunk elhagyni elemeket.
-- **Nincs overload!**
+- Függvény híváskor a<mark style="background: #FFB86CA6;"> paraméterekre névvel nem lehet hivatkozni, ezért csak a paraméter lista végéről tudunk elhagyni elemeket.</mark>
+- [!] **Nincs overload!**
 	- ha két azonos hevű függvény van, akkor a később deklarált fog nyerni.
-- [b] alapértelmezett értéket viszont lehet adni a függvénynek.
+- [b] alapértelmezett értéket viszont *lehet adni* a függvénynek.
 
 <mark style="background: #FFF3A3A6;">A függvény is egy teljes értékű típus!</mark>
-- Egy függvénynek lehet függvény a bemenő paramétere
-- Arra viszont nekünk kell figyelni, hoy tényleg függvény-e a paraméter.
-
-
+- Egy *függvénynek lehet függvény a bemenő paramétere*
+- Arra viszont nekünk kell figyelni, hogy tényleg függvény-e a paraméter.
 #### Scope
 Böngészőben futtatott JavaScript kód esetén a `window` objektum segítségével hivatkozhatunk az oldalhoz tartozó ablakra vagy keretre (**frame**).
-- Rengeteg általános tulajdonság, metódos, és esmény definiálva van rajta keresztül.
+- Rengeteg általános tulajdonság, metódos, és esemény definiálva van rajta keresztül.
 
 - [l] A `var`-ral létrehozott változók amik nincsenek függvénbe zárva, a **window** objektumon jönnek létre.
 	- A függvények is a **window** objektumra kerülnek.
 - [l] <mark style="background: #FFF3A3A6;">Nincs közvetlen lehetőség a privát és publikus tagok megjelölésére.</mark>
 - A változók megtalálása a legmélyebb szintről felfelé történik.
-	- Így halad felfeléegészen a globális névtérig
+	- Így halad felfelé egészen a globális névtérig
 	- **shadowing**: a lokális változók elfedik a külső változókat.
-
 #### Javascript API-k
 **DOM API** a HTML és CSS tagek dinamikus manipulálására.
 **XmlHttpRequest**: Szerver kommunikációt lehetővé tevő API.
 **Client Storage API**: web storage, IndexedDB-hez való hozzáférést segíti
-
 #### Legfontosabb objektumok:
 **window**: A böngésző tabfüle, amibe a weboldal betöltődik.
 **navigator**: A böngéső állapotát tárolja
 	- Lekérdezhető vele a nyelv, geolokáció, stb.
-**document**: Maga a **DOM**, ami a window obejtumra betöltődik. Ezen keresztül tudjuk módosítani a HTML-t.
+**document**: Maga a **DOM**, ami a window objektumra betöltődik. Ezen keresztül tudjuk módosítani a HTML-t.
 	-  A *DOM* egy olyan modell, mely leírja egy HTML oldal felépítését egy fa struktúrában, melynek gyökér eleme a „*Document*” objektum, ami alatt az oldalon lévő elemek találhatók hierarchikusan.
 
 ###### Elemek lekérdezése a DOMból:
@@ -143,15 +148,14 @@ document.getElementById(...)
 //Adott Name-mel rendelkező elemet
 document.getElementsByName(...)
 
-//tetszőleges elem lekérdezése selectorral
+/*tetszőleges elem lekérdezése selectorral: */
 
-//csak a legelső találtad adja vissza:
+//csak a legelső találatot adja vissza:
 document.querySelector('a');
 
 //az összeset visszaadja:
 document.querySelectorAll('a');
 ```
-
 ##### Elemek dinamikus létrehozása
 ```js
 //A createElement() segítségével új HTML elemeket hozhatunk létre.
@@ -175,7 +179,6 @@ p.sytle.textAlign = 'center';
 p.setAttribute('class', 'highlight')
 ```
 - [!] A tulajdonságokat másképpen írjuk CSS-ben és JS-ben! JS-ben camelCase-et használunk!
-
 ##### Események kezelése
 A felhasználói interakciókat kliens oldalon kezelni kellene. Számos eseményre tudunk feliratkozni, pl *kattintás*, *billentyűlenyomás*, *fókuszbakerülés*, *egér elem fölé vitele*, *beviteli mező tartalma megváltozott*,...
 
@@ -203,16 +206,16 @@ btn.addEventListener("click", function(){/*...*/})
 Ha a fában több elemnél is feliratkozunk például a kattintás eseményre, akkor:
  1. Fentről lefelé megkeresi a böngésző, hogy melyik elemre kattintottunk.
  2. Meghívja az ott beregisztrált eseménykezelőt.
- 3. Majd ha az lefutott, akkor az esemény felgyűrűzik a yökér elemig, még ekkor is keelhetjük az eseményt.
+ 3. Majd ha az lefutott, akkor az esemény felgyűrűzik egészen a gyökér elemig, még ebben a fázisban is kezelhetjük az eseményt.
  `stopPropagation()`-el le is állíthatjuk ezt a felgyűrűzést.
-
 ### Állapotkezelési megoldások
-- A cookie-kal gondok vannak, lásd [[WEB01-Webes Architektúra, HTTP, HTML, HTTPS]]
+- A cookie-kal gondok vannak, lásd [[WEB01-Webes Architektúra, HTTP, HTML, HTTPS#Állapotmegőrzés]]
 - [c] Több böngésző ablakban egy időben nehezen használható (HTTP kérésekhez kötődik)
 - Megoldás: **Web Storage**
 	- *kulcs-érték* párok tárolására találták ki.
 		- más típusú értékek automatikusan stringre konvertálódnak
 		- `JSON.parse()` és `JSON.stringify()` segítségével könnyen kovertálhatúak komplex struktúrák JSON-ná.
+	- [p] Egyszerre több ablakból is könnyedén használhatjuk az oldalt. 
 	- méretkorlát van rajtuk (~5MB/origin)
 	1. **Session Storage**
 		- Az információk csak a tab **bezárásáig** maradnak meg
@@ -251,7 +254,6 @@ sessionStorage.clear()
 - [p] optimalizált.
 
 ![[Cookie-vs-storage.png]]
-
 ##### Indexed Database
 Cél: **nagy mennyiségű adat tárolása kliens oldalon** + gyors keresés indexekkel.
 Kliensoldali gyorsítótárazásra, teljes offline működésre nagyon hasznos.
@@ -263,19 +265,18 @@ Kliensoldali gyorsítótárazásra, teljes offline működésre nagyon hasznos.
 - [b] 10MB-2GB méretek, **same origin policy!** 
 - [c] Nem támogatja a nyelvfüggő rendezéseket
 - [c] Nem tud szerveroldali adatbázissal szinkronizálni
-- [c] Ne támogatott a szabadszöveges keresés, nincs LIKE operátor
-
+- [c] Nem támogatott a szabadszöveges keresés, nincs `LIKE` operátor
 ##### History API
-- A teljes oldalt nem akarjuk frissítani, de működnie kellene a böngésző Back/Forward gombjainak.
+- [n] A teljes oldalt nem akarjuk frissítani, de működnie kellene a böngésző Back/Forward gombjainak.
 
 **Hol tároljuk az állapotot**?:
-- Bookmardkolható az állapot - *URL*
-- A szerveroldalon is szükség van rá - *URL, hidden field, cookie*
-- Kis mennyiségű, egyszerű adat: - *DOM Storage*
-- Nagyobb mennyiségű, vagy byonolultabb lekérdezések - *IndexedDB*
-- Navigációval összefüggő állapotot kell tárolni - *History API*
+- Bookmardkolható az állapot? - *URL*
+- A szerveroldalon is szükség van rá? - *URL, hidden field, cookie*
+- Kis mennyiségű, egyszerű adat?: - *DOM Storage*
+- Nagyobb mennyiségű, vagy byonolultabb lekérdezések? - *IndexedDB*
+- Navigációval összefüggő állapotot kell tárolni? - *History API*
 
-**Biztonság szempontából**:
+**Biztonság szempontjából**:
 - [!] A tárolt adatokat bárki láthatja - **titkosítani kell**
 - [!] Bárki módosíthatja - **integritásvédelem!**
 
@@ -283,21 +284,20 @@ Kliensoldali gyorsítótárazásra, teljes offline működésre nagyon hasznos.
  - [!] Az adatot bárki törölheti teljes egészében, vagy részében - **fallback**
  - [!] A kvóta limitet elérhetjük
  - [!] A felhasználó bármikor megnyithat több böngésző ablakot.
-
 ##### Feketemágia a függvényekkel - Closure
 Függvények vannak egymásba ágyazva, de a külső függvény elérhetővé teszi a külvilág számára a belső függvényt.
 - [!]  A belső függvény megőrzi azt az állapotot, ami a létrehozása pillanatában volt.
 
 > [!NOTE] Closure létrejötte
 > 
-> Amikor egy függvény egy belső függvényét láthatóvá teszi a külvilágszámára, akkor egy ún. **closure** jön létre, ami nem más, mint <mark style="background: #FFF3A3A6;">az adott belső függvény és a hozzá tartozó állapot együttvéve.</mark>
+> Amikor egy függvény egy belső függvényét láthatóvá teszi a külvilág számára, akkor egy ún. **closure** jön létre, ami nem más, mint <mark style="background: #FFF3A3A6;">az adott belső függvény és a hozzá tartozó állapot együttvéve.</mark>
 > - Minden függvény egyben egy closure is (kivétel a `new Function()`, ami szövegből készít függvényt)
 
 ```js
 /** Closure névtelen függvénnyel
 - A hozzátartozó állapot is vele van **/
 let kulso = function () {
-let x = 8;
+	let x = 8;
 	return function () {
 		alert(++x);
 	}
@@ -308,14 +308,14 @@ b(); // 9
 b(); // 10
 ```
 
+**Automatikusan futtatható függvények**
 ```js
 /* Self executing functions*/
 (function (nev) {
 	alert('Szia ' + nev);
 })('világ');
 ```
-Lényegében a neve helyén van maga a function
-
+Szintaktikailag a neve helyén van maga a function.
 #### Modul tervezési minta
 A kódunkat egy minden mástól független névtérbe csomagolhatjuk, elkerülve a globális névtér szennyezését.
 - Kisebb logikai egységekre bonthatjuk a kódunkat.
@@ -333,13 +333,14 @@ var myModule = (function()
 }());
 ```
 
+Csak a `return`-ön belüli kód lesz "publikus"
 ```js
 var myModule = (function () {
 	var priValt = 3;
 	var priFv = function () { alert('Privát!'); };
 	return {
-	pubValt: 5,
-	pubFv: function () { alert('Publikus'); }
+		pubValt: 5,
+		pubFv: function () { alert('Publikus'); }
 	};
 })();
 
@@ -347,8 +348,8 @@ myModule.pubFv();
 alert(myModule.pubValt);
 ```
 
+A fenti példa több fájlra is darabolható:
 ```js
-//A fenti példa több fájlra is darabolható:
 var myModule = (function (my) {
 	my.pubFv = function () { alert('Publikus'); };
 	return my;
@@ -366,7 +367,7 @@ alert(myModule.pubValt);
 ```
 
 ##### Konstruktor:
-segítségével a modulnak adhatunk bemeneti paramétereket (**import**), a `return` kulcsszó után pedig azt határozhatjuk meg, hogy kívülről mi látszik a modulból (**export**).
+Segítségével a modulnak adhatunk bemeneti paramétereket (**import**), a `return` kulcsszó után pedig azt határozhatjuk meg, hogy kívülről mi látsszon a modulból (**export**).
 
 ```js
 //sayHi.js
@@ -407,17 +408,16 @@ Ha kézzel beleírjuk a `return`-t, akkor a megadott objektummal tér vissza.
 function User(name) {
 	this.name = name;
 	this.sayHi = function() {
-	alert( "My name is: " + this.name )
+		alert( "My name is: " + this.name )
 	};
 }
 
 let gabor = new User("Gábor");
 gabor.sayHi(); // My name is: Gábor
 ```
-
 ###### Gondok a this-sel.
 Előfordul, hogy a `this` kulcsszó nem arra az objektumra mutat, amin belül használjuk.
-Például egy eseménykezelőben a `this` a DOM elemre mutat. A hibás elkerülés érdekében ezért a `this` használatát kerülni szokás, és az osztály tagjait egy másik változón keresztül élrjük el (pl `that, self`)
+Például egy eseménykezelőben a `this` a DOM elemre mutat. A hibás elkerülés érdekében ezért a `this` <mark style="background: #FFF3A3A6;">használatát kerülni szokás, és az osztály tagjait egy másik változón keresztül élrjük el </mark> (pl `that, self`)
 
 ```js
 function User(name) {
@@ -449,14 +449,14 @@ nev => console.log(nev);
 	console.log(cim)
 }
 
-//4. - Nem kell kiírni a return-t:
+//4. - Egyszerű esetekben nem kell kiírni a return-t:
 var func = x => x * x;
 
 //5. Ha van {}, akkor kell return
 var func = (x, y) => { return x + y; };
 
 //6. Objektum nem adható vissza simán
-var func = () => { foo: 1 };
+var func = () => { foo: 1 }; //!
 
 //Helyette zárójelezni kell:
 var func = () => ({foo: 1});
@@ -480,7 +480,7 @@ function Person(){
 ```
 
 ##### Classok
-Nem egy teljesen új nyelvi elem, ez is egyfajta nyelvi elem.
+- Nem egy teljesen új nyelvi elem
 ```js
 class User {
 	constructor(name) { this.name = name }
@@ -492,7 +492,7 @@ alert(typeof User); // function
 Létrehoz egy `User` nevű függvényt, ami az osztály deklaráció eredménye lesz. A kódja pedig a `constructor` metódusból származik. A **prototípuson** eltárolja a metódusokat
 ![[js_prototype.png]]
 - [p]  class-t csak `new`-val lehet hívni.
-- [p] Ha kiiratjuk szövegesen az osztályt, az class-al kezdődik.
+- [p] Ha kiíratjuk szövegesen az osztályt, az class-al kezdődik.
 - [p]  Mindig strict módban futnak
 - Nem lehet végigiterálni a metódusain
 
@@ -504,35 +504,49 @@ class User {
 	get name() { return this._name; }
 	set name(value) {
 		if (value.length < 4) { alert("A név rövid."); return; }
-	this._name = value;
+		this._name = value;
 	}
 }
 ```
 
-Backtick: *nincs szükség a sztring összefűzésekre*: return \`My name: ${this.name} \`;
+Backtick: *nincs szükség a sztring összefűzésekre*: <mark style="background: #ADCCFFA6;">return \`My name: ${this.name} \`</mark>;
 - [!] Bár függvényeknél megtehetjük, hogy korábban hívjuk meg, mint deklaráljuk, mert a deklarálást kiemeli a kódból. Viszont ugyanez az osztályokra már nem igaz.
 
+###### Származtatás
 Arra is lehetőségünk van, hogy **az osztályok származzanak egymásból**. Ehhez az `extends` kulcsszót kell használnunk. Az ősosztály függvényét például a `super.toString()` a konstruktorát pedig a `super()` segítségével tudjuk meghívni.
 
+```js
+class ColorPoint extends Point {
+	constructor(x, y, color) {
+		super(x, y);
+		this.color = color;
+	}
 
+toString() { return super.toString() + ' in ' + this.color; }
+}
+
+let cp = new ColorPoint(25, 8, 'green');
+console.log( cp.toString() ); // '(25, 8) in green'
+console.log(cp instanceof ColorPoint); // true
+console.log(cp instanceof Point); // true
+```
 ### Promise
 **A JavaScript alapvetően aszinkron**
 - [b] A Promise egy olyan objektum, ami majd a jövőben visszaad egy értéket, de nem most. Emiatt tökéletes *aszinkron* kérések kezelésére.
 Három állapota van:
-1. Pending - függőben van
-2. Fulfileed - sikeres
-3. Rejected - hibára futott
-A mindig Pendig állapotból indul és Fulfilled vagy Rejected állapotban ér véget.
-
+1. *Pending* - függőben van
+2. *Fulfilled* - sikeres
+3. *Rejected* - hibára futott
+Mindig Pendig állapotból indul és Fulfilled vagy Rejected állapotban ér véget.
 #### Eredmény feldolgozása:
 `.then(success, error)`
 	- Akkor hívódik meg, ha lefutott a Promise
-	- Ha sikeresen futott le, akkor a success handler hívódik meg
-	- Ha sikerteleül, akkor az error
+	- Ha sikeresen futott le, akkor a `success` handler hívódik meg
+	- Ha sikerteleül, akkor az `error`
 `.catch(f)`
 	- Csak akkor fut le, ha a Promise hibával tért vissza.
 `.finally(f)`
-	- Minden esetben lefut, ha sikeres, ha nem, de nem tudjuk megmondan, hogyan futott le.
+	- Minden esetben lefut, ha sikeres, ha nem, de nem tudjuk megmondani, hogyan futott le.
 
 ```js
 learnMobWeb.then(
@@ -544,15 +558,10 @@ learnMobWeb.catch(alert);
 learnMobWeb.finally( () => /* Stop loading */ )
 ```
 
-`Promise.all(promises)`:
-- megvárja, hogy az összes befejeződjön
-`Promise.allSettled(promises)`
-- Megvárja, hogy az összes Promise befejeződjön és visszaadja, hogy melyik voltsikeres és melyik hibás.
-`Promise.race(promises)`:
-- Csak az első promise-t várja meg és annak eredményét adja vissza.
-`Promise.any(promises)`
-- Az első sikeresen befejeződött Promise-ra vár.
-
+`Promise.all(promises)`:  megvárja, hogy az összes befejeződjön
+`Promise.allSettled(promises)`: Megvárja, hogy az összes Promise befejeződjön és visszaadja, hogy melyik voltsikeres és melyik hibás.
+`Promise.race(promises)`: Csak az első Promise-t várja meg és annak eredményét adja vissza.
+`Promise.any(promises)`: Az első sikeresen befejeződött Promise-ra vár.
 ### Async/ await
 - Kényelmesen kezelhetünk vele `Promise`okat.
 - A függvény előtt lévő async azt jelenti, hogy a függvény egy `Promise`-sal tér vissza.
@@ -573,14 +582,11 @@ f();
 
 ### Fetch API
 `fetch()` segítségével hálózati kéréseket küldhetünk a szerver fele. Korábban ezt csak az `XmlHttpRequest`-el tudtuk elérni.
-Támogatja a **CORS**-t tehát tetszőleges szerver felé indíthatunk kéréseket, és `Promise`-sel tér vissza.
-- [!]  A Promise csak akkor reject-elődik ha hálózati hiba van. Egyébként pedig státuszkódtól függetlenül sikeresen tér vissza, ha a szerver válaszolt.
+Támogatja a **CORS**-t, tehát<mark style="background: #FFF3A3A6;"> tetszőleges szerver felé indíthatunk kéréseket</mark>, és `Promise`-sel tér vissza.
+- [!]  A Fetch API-ban a Promise csak akkor reject-elődik ha hálózati hiba van. Egyébként pedig státuszkódtól függetlenül sikeresen tér vissza, ha a szerver válaszolt.
 `let promise = fetch(url, [options])`
-- A fetch Promise a beépített Response osztályt adja vissza, amiben a szervertől visszakapott Header-ök találhatók. A válaszból a body-t egy újabb `Promise`-sal kapjuk meg, amit utána json() függvénynel parsolunk().
-
-
+- A fetch `Promise` a beépített `Response` osztályt adja vissza, amiben a szervertől visszakapott Header-ek találhatók. A válaszból a body-t egy újabb `Promise`-sal kapjuk meg, amit utána json() függvénynel parsolunk().
 - Fetch példa:
-
 ```js
 let response = await fetch(url);
 

@@ -1,7 +1,7 @@
-A **jQuery** egy gyors, kicsi és funkciógazdag JavaScript könyvtár,amivel egyszerű:
+A **jQuery** egy gyors, kicsi és funkciógazdag JavaScript könyvtár, amivel egyszerű:
 
 - a HTML dokumentum manipulálása,
-- a kliens oldali eseménykezelők készítése,
+- a kliens oldali <mark style="background: #FFF3A3A6;">eseménykezelők</mark> készítése,
 -  az animáció,
 -  és az aszinkron kommunikáció a szerverrel (AJAX kérések)
 - **böngészőfüggetlen**
@@ -17,10 +17,8 @@ A jQuery egyik legfontosabb eseménye a `document ready` esemény.
 `$("img")` - Adott tag
 
 Ezután használhatóak összetett (akár hierarchikus) selectorok is, mint CSS-ben.
-
-
-### Validáció
-Ha a beépített szabályok nem megfelelőek készíthetünk egyedi szabályt.
+### Form Validáció
+Ha a beépített szabályok nem megfelelőek, készíthetünk egyedi szabályt.
 jQuery validate-et pont erre találták ki.
 	– Szabályok JavaScriptben megadhatók.
 	– Egyedi hibaüzenetet adhatunk meg.
@@ -28,12 +26,12 @@ jQuery validate-et pont erre találták ki.
 ```js
 $(document).ready(function() {
 	$("#registrationForm").validate({
-	rules: {
-		firstName: "required",
-	}
-	messages: {
-		firstName: "Kötelező megadni"
-	}
+		rules: {
+			firstName: "required",
+		}
+		messages: {
+			firstName: "Kötelező megadni"
+		}
 });
 ```
 További lehetséges validate elemek:
@@ -45,9 +43,9 @@ További lehetséges validate elemek:
 `setDefault`
 	- Alapértelmezett működést tudjuk vele átállítani.
 ## $.ajax({…})
-A szinkron kommunikáció előnytelen számunka, nem a legjobb a felhasználói élmlny sem, villan, ugrál, stb...
+A szinkron kommunikáció előnytelen számunka, nem a legjobb a felhasználói élmény, mert villan, ugrál, stb...
 
-Megoldás: aszinkron kommunikáció
+Megoldás: **aszinkron kommunikáció**
 - [p] Jobb felhasználói élmény
 - [p] Gyorsabb
 - [p] Nincs felhasználói felület bokkolás
@@ -64,21 +62,22 @@ Vannak azért hátrányai is:
 
 Négy technológia szükséges a működéséhez:
 
--  XMLHttpRequest (XHR)
+-  *XMLHttpRequest (XHR)*
 	- Lényegében egy mini-böngésző, aszinkron végrehajtással. A választ a callback függvényben lehet feldolgozni
-- JavaScript
--  DHTML + DOM
+- *JavaScript*
+-  *DHTML + DOM*
 	- DOM + JS + CSS
 	- A szervertől érkező válasz alapján a felhasználói felület frissítésére
-- XML vagy JSON
+- *XML vagy JSON*
 	- Átküldött adatstruktúra sorosítására alkalmas
 	- Az XML redundáns, nehézkes
-	- A JSON viszont egyszerű adatcserére született, sorosítás jól támogatott.
+	- [n] A JSON viszont egyszerű adatcserére született, sorosítás jól támogatott.
 
 jQuery függvények:
 `$.ajax`: Ez mindent tud, csak sok a paramétere
 `$.load, $.get, $.post, $.script, $.json`
 
+XMLHttpRequest példa:
 ```js
 // A kérés elküldése
 
@@ -99,36 +98,48 @@ function onStateChanged() {
 }
 ```
 
+AJAX példa:
+```js
+$("button").click(function(){  
+  $.ajax({url: "demo_test.txt", success: function(result){  
+    $("#div1").html(result);  
+  }});  
+});
+```
 **Same-origin policy**: Csak oda lehet visszaívni, ahonnan az oldal letöltődött!
+
+A `Fetch API` viszont **CORS**-kompatibilis: [[WEB04-Javascript (alapok+haladó)#Fetch API]]
 
 ##### CORS:
 **Cross-Origin Resource Sharing**
-Tartozik hozzá egy Preflight request, amivel elkéri a szervertől az Access-Controlhoz tartozó header-eket a kliens. A szerver megmondja, mit tehet a kliens. Ehhez süti alapból nem megy át.
+Tartozik hozzá egy `Preflight` request, amivel elkéri a szervertől az `Access-Control`-hoz tartozó header-eket a kliens. A szerver megmondja, mit tehet a kliens. Ehhez süti alapból nem megy át.
 
 A kliens Az *Origin* mezőben elküldi a kérő oldal címét.
 
-**Egyes HTML elemekre nem vonatkozik a same-origin policy**, mint például az `img, script, lnk, iframe`
-
+> [!example] Same-origin policy kivételek
+> **Egyes HTML elemekre nem vonatkozik a same-origin policy**, mint például az `img, script, link, iframe`
 ##### Nehézségek:
-- Átirányítás a válaszban:
+- [?] Átirányítás a válaszban:
 	- A kliensnek követnie kell.
-- Lejár a cookie.
+- [?] Lejár a cookie.
 	-  Lejár a session cookie → megszűnik a session a szerveren, de nem tudja értesíteni a klienst.
 	- Lejárt az authentication cookie → átirányítás a bejelentkezés oldalra, ami HTML választ küld.
-- Szerveroldali hiba
+- [?] Szerveroldali hiba
 	-  pl. kezeletlen kivétel, 5xx szerver oldali hiba, túl nagy méretű kérés, timeout.
 	- Szerver oldali általános hibakezelő átirányít egy HTML hibaoldalra.
 	- Érvénytelen XML vagy JSON tartalom, a kliens nem tudja feldolgozni.
 - <mark style="background: #BBFABBA6;">A sok kérés együtt nagy forgalmat generálhat.</mark>
 
-
-Adott intervallumonként pollozhatunk a szervertől ajax-al, de nem azonnal jelennek meg az adatok, és sok a felesleges kommunikáció. Megoldás lehet a **Long-polling**, ahol a kline sdirekt sokáig nyitva tartja a kapcsolatot. Ha van változás, akkor vissza tudja küldeni a szerver-
+## Websocket
+Adott intervallumonként pollozhatunk a szervertől ajax-al, de nem azonnal jelennek meg az adatok, és sok a felesleges kommunikáció. 
+Megoldás lehet a **Long-polling**, ahol a kline sdirekt sokáig nyitva tartja a kapcsolatot. Ha van változás, akkor vissza tudja küldeni a szerver.
 - [p] Egyszerű megvalósítás
 - [p] Működik minden böngészőben
 - [p] Azonnal értesül a kliens
 - [c] Bonyolultabb szerveroldali implementáció
 - [c] Jobban terheli a szerveroldalt, mert foglalni kell a kapcsolathoz tartozó erőforrásokat. 
-## Websocket
+Megoldás: **websocket**
+
 **Full-duplex, kétirányú TCP kommunikáció egyetlen socketen keresztül.**
 - HTTP-től független TCP kommunikáció.
 - ws:// és wss:// URI séma.
