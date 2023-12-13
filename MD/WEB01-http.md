@@ -47,7 +47,33 @@ Meghatározza az erőforrás elérését is.
 > www.bme.hu, ahova a "www.google.com" felhasználónévvel próbálunk majd meg belépni.
 
 ![[HTML-codes.png|400]]
+#### Pár státuszkód
+**1xx - Information**
+- *100*: Continue
+- *101*: Switching protocols
 
+**2xx - Success**
+- *200*: OK
+- *201*: Created
+- *204*: No content
+
+**3xx - Redirect**
+- *301*: Moved permanently
+- *304*: Not modified
+
+**4xx - Client Error**
+- *400*: Bad request
+- *401*: Unauthorized
+- *403*: Forbidden
+- *404*: Not found
+- *405*: Method not allowed
+- *410*: Gone
+- *413*: Request entity too large
+- *414*: Request URI too long
+
+**5xx - Server Error**
+- *500*: Internal server error
+- *503*: Service unavailable
 #### Kérések jelentései általában REST APIban:
 *GET*: <mark style="background: #FFF3A3A6;">Lekérdez</mark>i az URL-en található erőforrást.
 *POST*: <mark style="background: #BBFABBA6;">Létrehoz</mark> egy új erőforrást a megadott URL-en.
@@ -77,14 +103,14 @@ DNT: 1
 Jelölőnyelv, ami leírja a böngészőnek, hogyan épül fel a weboldal struktúrája.
 **Attribútumok**: Extra információt adnak az elemhez. (Egyedi azonosító, név, CSS osztályok..)
 - A nyitó tagbe írjuk be, a neve után = jel következik. Bool értéknél elhagyható az érték, elég kiírni az attrib. nevét.
-- Megaható javascript függvény is, amit adott eseményre meg akarunk hívni. pl. `onclick=randomFunction(this)`
+- Megadható javascript függvény is, amit adott eseményre meg akarunk hívni. pl. `onclick=randomFunction(this)`
 #### \<head>
 - Itt adhatunk meg az oldalra vonatkozó metaadatokat (karakterkódolás, oldal címe, cache beállítások, stb.)
-- Itt hivatkozhatunk css fájlokr
+- Itt hivatkozhatunk css fájlokra is
 #### Szemantikus oldalváz
 Több különböző tag, pl.: \<header>, \<nav>, \<aside>, \<section>, \<article>, \<footer>, stb..
 - **Jobb**, mert egyes elemek jelentéssel bírnak.
-	- A böngészők, keresőmotorok szeretik, értelmezik
+- A böngészők, keresőmotorok szeretik, értelmezik
 
 | Blokk elemek                             | Inline elemek                                                          |
 | ---------------------------------------- | ---------------------------------------------------------------------- |
@@ -126,7 +152,6 @@ Több különböző tag, pl.: \<header>, \<nav>, \<aside>, \<section>, \<article
 	- Select helyett datalist, de ugyanúgy option-ök vannak.
 	- Annyival tud többet, hogy lehet hozzá készíteni egy keresőmezőt, amivel lehet a listán belüli elemekben keresni: `<input list="listaID">`
 
-
 *Beviteli mezőhöz tartozó címke: \<label>* 
 - for attribútum: megadhatjuk, hogy melyik inputhoz tartozik.
 ###### Input attribútumok
@@ -137,7 +162,7 @@ Több különböző tag, pl.: \<header>, \<nav>, \<aside>, \<section>, \<article
 *autocomplete="off"*: Korábbi értékek felajánlásának kikapcsolása.
 *autofocus*: Automatikusan kapjon fókuszt.
 ###### Validáció
-*required*: Kitelezően kitöltendő mező
+*required*: Kötelezően kitöltendő mező
 *pattern*: Reguláris kifejezés, amire illeszkednie kell a bevitt adatoknak.
 *maxlength*: maximális hossz
 *min, max, step* = min/max érték, és lépésköz
@@ -151,13 +176,13 @@ A HTTP alapból állapomentes. Ez annyira nem jó akkor, amikor szeretnénk, hog
 Megoldási lehetőségek:
 #### kliens->szerver
 1. **Session információ küldése az adattal együtt, minden kérésnél**
-	- [p] Nem igényel a szerveroldalon erőforrást,<mark style="background: #FFF3A3A6;"> sok felhasználót ki lehet vele egyszerre szolgáln</mark>i.
-	- [c] A tárolható adatok mérete korlátozott (Nem skálázódik jól nagy adatmennyiségre)
-	- [c] Az adatok mindig utaznak a hálózaton, pazaroljuk a sávszélességet.
-	- [c] Biztonsági kérdések szempontjából sem annyira előnyös. 
-			Ha valaki belelát a forgalomba, akkor a session adatokkal kiadhatja magát másnak (*man-in-the-middle*),
-			módosíthatja az adatot nem kívánt módon: *tampering*. Megoldás: **digitális aláírás** 
-			vagy csak szimplán beleláthat (*eavesdropping*): Megoldás: **HTTPS**
+	+ Nem igényel a szerveroldalon erőforrást,<mark style="background: #FFF3A3A6;"> sok felhasználót ki lehet vele egyszerre szolgáln</mark>i.
+	+  A tárolható adatok mérete korlátozott (Nem skálázódik jól nagy adatmennyiségre)
+	-  Az adatok mindig utaznak a hálózaton, pazaroljuk a sávszélességet.
+	-   Biztonsági kérdések szempontjából sem annyira előnyös. 
+		- Ha valaki belelát a forgalomba, akkor a session adatokkal kiadhatja magát másnak (*man-in-the-middle*),
+		- módosíthatja az adatot nem kívánt módon: *tampering*. Megoldás: **digitális aláírás**
+		- vagy csak szimplán beleláthat (*eavesdropping*): Megoldás: **HTTPS**
 *Megvalósítás*: 
 	- URL mezőben: a végére illesztve egy `?` után. Ha több paramétert is el akarunk küldeni, akkor köztük `&` jelet írunk: www.google.com?page=2&q=valami
 	- Rejtett form mező: `<input type="hidden" name="id" value="2">`
@@ -238,9 +263,11 @@ Lejjebb látható, hogy egyes protokollokban egyes üzenetek összevonódhatnak.
 ##### HTTP Protokollok, TLS
 **TLS 1.2**
 - 2 network roundtrip
+
 **TLS 1.3**
 - 1 roundtrip
 - Szigorúan korlátozza a használható titkosítási algoritmusokat. A kliens így azonnal kitalálhatja, hogy a szerver melyiket fogja használni
+
 **HTTP/3 QUIC**
 - HTTP + kriptográfiai handshake egyben. Önmagába foglalja a TLS 1.3-at, így nem lehet nélküle használni.
 ![[TLS-verziok.png]]

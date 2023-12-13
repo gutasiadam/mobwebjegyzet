@@ -32,6 +32,7 @@ $(document).ready(function() {
 		messages: {
 			firstName: "Kötelező megadni"
 		}
+	}
 });
 ```
 További lehetséges validate elemek:
@@ -48,7 +49,7 @@ A szinkron kommunikáció előnytelen számunka, nem a legjobb a felhasználói 
 Megoldás: **aszinkron kommunikáció**
 - [p] Jobb felhasználói élmény
 - [p] Gyorsabb
-- [p] Nincs felhasználói felület bokkolás
+- [p] Nincs felhasználói felület blokkolás
 - [p] Nem frissül a teljes oldal
 - [p] Megmarad a munkaállapot
 - [p] Kevesebb adat a hálózaton
@@ -112,7 +113,7 @@ A `Fetch API` viszont **CORS**-kompatibilis: [[WEB04-Javascript (alapok+haladó)
 
 ##### CORS:
 **Cross-Origin Resource Sharing**
-Tartozik hozzá egy `Preflight` request, amivel elkéri a szervertől az `Access-Control`-hoz tartozó header-eket a kliens. A szerver megmondja, mit tehet a kliens. Ehhez süti alapból nem megy át.
+Tartozik hozzá egy `Preflight` request, amivel elkéri a kliens a szervertől az `Access-Control`-hoz tartozó header-eket. A szerver megmondja, mit tehet a kliens. Ehhez süti alapból nem megy át.
 
 A kliens Az *Origin* mezőben elküldi a kérő oldal címét.
 

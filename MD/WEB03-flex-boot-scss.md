@@ -9,15 +9,16 @@ A **flexbox** teljesebb kontrollt ad egy konténer gyerekei felett, *reszponzív
 `flex-direction`: Gyerekek elrendezése
 	- `row`: vízszintesen
 	- `column`: függőleges tengely mentén
+![[flex-irányok.png|300]]
 `flex-wrap:` sor/oszloptörés engedélyezése
 `justify-content`: Elemek **elrendezés**e, tagolása a főtengely (*main axis*) mentén
 	- A gyerekek közt megmaradt helyet osztja be.
-![[flex-irányok.png|500]]
+
 `align-items`: Gyerekek igazítása a **főtengelyre merőlegesen**
 - [!] Hasonlít a `justify-content`-re, de fontos különbség, hogy <mark style="background: #FFF3A3A6;">nem a gyerekek közt megmaradt helyet osztja be, hanem a gyerekek és a flexbox széle közötti helyet!</mark>
 	- Tehát ez akkor is működik, ha valamelyik gyerek „nyúlós” (mivel az a főtengely mentén nyúlik).
 	- A gyerekek a kereszttengelyen is nyújthatók, erre van a `stretch` opció
-	- Például ha 3 különböző magassábú flex konténerünk van, akkor az `align-items: center;` a kereszttengely mentén középre rendezi őket.
+	- Például ha 3 különböző magasságú flex konténerünk van, akkor az `align-items: center;` a kereszttengely mentén középre rendezi őket.
 `align-content`: *Több sornyi flexbox elemek sorainak* igazítása a kereszttengely mentén.
 	- Egyetlen sornyi flexbox elemre nincs hatásra.
 	- Értékei kb. ugyanazok és kb. ugyanazt jelentik, mint a `justify-content` esetén, azonban itt van külön `stretch` érték is (ami a default), itt a gyerekektől függ a „nyúlás”.
@@ -68,7 +69,7 @@ A grid gyökere a `container` vagy `container-fluid` osztály
 > 	- A `col-{méret}` **minden felbontásra vonatkozik**, hiszen ez a legkisebb.
 > 	- A `col-md-{méret}` viszont **csak 768 px felett.**
 
-A Bootstrap 4-től a `col`-t imegában s használhatjuk mint lehetséges oszlop szélességet.
+A Bootstrap 4-től a `col`-t magában s használhatjuk mint lehetséges oszlop szélességet.
 -  Ha nem adjuk meg a töréspontot, akkor ebben az esetben az adott oszlop <mark style="background: #CACFD9A6;">mérete automatikusan kerül meghatározásra.</mark>
 
 
@@ -125,6 +126,7 @@ A SASS preprocesszornak kétféle szintaxisa van: SASS és SCSS. A tárgy csak a
 - [p] Átláthatóbb kód
 - [p] Könnyebb karbantartani, mert csak egyetlen helyen kell lecserélni. 
 
+*példa változók használatára*
 ```scss
 $page-min-width: 1200px;
 $page-min-height: 800px;
@@ -135,8 +137,8 @@ html {
 	height: 100%;
 }
 ```
-*példa változók használatára*
 
+*változók lokalitása*
 ```scss
 $text-color: blue; // globális változó
 
@@ -149,8 +151,8 @@ $text-color: blue; // globális változó
 	color: $text-color;
 }
 ```
- *változók lokalitása*
-
+ 
+*!global flag.*. Ilyenkor a névütközés esetén a külső, globális változóra hivatkozik az SCSS.
 ```scss
 $text-color: blue;
 .error {
@@ -163,7 +165,6 @@ $text-color: blue;
 	color: $text-color; //zöld lesz
 }
 ```
-*!global flag.*. Ilyenkor a névütközés esetén a külső, globális változóra hivatkozik az SCSS.
 #### Mixinek
 A mixinekkel egy **osztályba szervezzünk több tulajdonság beállítását**, **amit később egy sorban újra hasznosítunk**, akár úgy is, hogy *bemenő paraméter*t kap.
 Hasznos lehet a vendor prefixek miatti többféle szabálybeállításnál.
@@ -183,8 +184,6 @@ Hasznos lehet a vendor prefixek miatti többféle szabálybeállításnál.
 	@include square(300px, rgb(255,0,0));
 }
 ```
-*mixinek*. Újra felhasználunk egy kódrészletet.
-
 #### Függvények
 ```scss
 @function column-width($col, $total:8) {
@@ -195,7 +194,7 @@ Hasznos lehet a vendor prefixek miatti többféle szabálybeállításnál.
 	width: column-width($total: 8, $col: 3); // 37.5%
 }
 ```
-*Függvények* létrehozásánál az egyes paramétereknek alapértelmezettértéket is adhatunk. Ha több paramétere van egy függvénynek, akkor <mark style="background: #CACFD9A6;">a nevesített paraméterekkel átláthatóbb kódot készíthetünk és a paraméter sorrendet sem kell betartani.</mark>
+*Függvények* létrehozásánál az egyes paramétereknek alapértelmezett értéket is adhatunk. Ha több paramétere van egy függvénynek, akkor <mark style="background: #CACFD9A6;">a nevesített paraméterekkel átláthatóbb kódot készíthetünk és a paraméter sorrendet sem kell betartani.</mark>
 
 Szabályokat generálhatunk **ciklusok** segítségével is:
 ```scss

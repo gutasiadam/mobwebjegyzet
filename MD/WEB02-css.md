@@ -74,15 +74,15 @@ Az oldalon minden elem egy doboz. **A befogaló négyszög határozza meg, hogy 
 
 > [!Tip] CSS mértékegységek
 > 	- Többféle CSS mértékegység islétezik, pl: `px, %, em, rem, vw, vh, cm, mm, pt, vm...`
-	- `%`: A szülő szélességének %-a
-	- `em`: A szülő betűméretéhez mérve, `rem`: a gyökér betűméretéhez mérve relatív.
-	- `vw, vh`: A viewport aktuális méreteihez képest relatív
-	- `vm`: A nézőpont szélessége és magassága közül a kisebbik
-	- `pt`: Pont
-	- `cm, mm`: centiméter, milliméter
+> 	- `%`: A szülő szélességének %-a
+> 	- `em`: A szülő betűméretéhez mérve, `rem`: a gyökér betűméretéhez mérve relatív.
+> 	- `vw, vh`: A viewport aktuális méreteihez képest relatív
+> 	- `vm`: A nézőpont szélessége és magassága közül a kisebbik
+> 	- `pt`: Pont
+> 	- `cm, mm`: centiméter, milliméter
 
 #### Blokk elemek
-- **<mark style="background: #FFF3A3A6;">Mindig új soron kezdődik, és a szülője teljes szélességét kitölti.</mark>
+- <mark style="background: #FFF3A3A6;">Mindig új soron kezdődik, és a szülője teljes szélességét kitölti.</mark>
 	- az egymás után következő blokk elemek – ha a stílus felül nem írja – egymás alá rendeződnek. Ez a *Block flow*, iránya fentről lefelé.
 - [c]  a `text-align, line-height, vertical-align` tulajdonságok nem hatnak rá.
 	- De ha megadunk neki ilyet, akkor az *inline gyerekelemek megöröklik*, vagyis közvetett hatása van.
@@ -90,7 +90,7 @@ Az oldalon minden elem egy doboz. **A befogaló négyszög határozza meg, hogy 
 	- Alapértelmezetten `auto`, ennek hatására a blokk kitölti a szülője szélességét.
 	- Többféle CSS mértékegységben is meghatározható.
 - [n] `height`
-	- Szintén `auto` az alapértelmezésre. Ez itt azt jelenti, hogy a **tartalmazott elemek megjelenítéséhez szükséges magasság!** 
+	- Szintén `auto` az alapértelmezése. Ez itt azt jelenti, hogy a **tartalmazott elemek megjelenítéséhez szükséges magasság!** 
 	- mindenféle CSS mértékegységgel állítható.
 	- **A % a szülő magasságának %-ában értendő**, nem mindig adja a várt eredményt!
 		- A dokumentumfán felfelé **minden elemnek meg kell adni a magasságot, hogy jól működhessen!**
@@ -105,7 +105,8 @@ Az oldalon minden elem egy doboz. **A befogaló négyszög határozza meg, hogy 
 - [n] Egyes CSS property-k kiszakítják az inline elemeket a dokumentumfolyamból, *blokkszerűvé* alakítva őket. Beállíthatóvá válik így rajtuk a `width, height` érték.
 #### Inline-block elemek
 Inline:
-- [p] Az elemek szépen egymás mellé kerülnek, és regálnak a vertical align-ra
+- [p] Az elemek szépen egymás mellé kerülnek, és reagálnak a vertical align-ra
+
 Block:
 - [p] Játszhatunk a margókkal, paddinggel, méretekkel
 **Nem lehetne mindkettőből egy kicsit?**
@@ -118,14 +119,14 @@ Block:
 > Bármely inline elem blokk elemmé alakítható a `display` tulajdonság `block`–ra állításával.
 ### Margin, padding, box model
 A **margó** a blokk *köré*, a **padding** a blokk *külső körvonala és a tartalma közé* helyez térközt.
-- [!] Ha vízszintes mergók találkoznak, akkor azok összeolvadnak és <mark style="background: #FFF3A3A6;">csak a nagyobb lesz látható! </mark> -> **margin collapse**
+- [!] Ha vízszintes margók találkoznak, akkor azok összeolvadnak és <mark style="background: #FFF3A3A6;">csak a nagyobb lesz látható! </mark> -> **margin collapse**
 	- Megakadályozható pl azzal, hogy bevezetünk közéjük bordert (pl átlátszót)
 	- Vagy csak meghatározunk szabályokat saját magunknak, mondjuk hogy *margót csak lefele, paddinget csak felfele* rakunk.
 ![[Pasted image 20231210135408.png|250]]
 #### Border-box, és content box méretezés
 Nem egyértelmű, hogy minek a mérete a `width x height`.
 
-**Border-box:** ha egy dobozra gondolunk, annak szélét is beleértjük. 
+**Border-box:** ha egy dobozra gondolunk, akkor a `width x height`ba annak széleit is beleértjük. 
 **Content-box**: a `width x height` csak a tartalom mérete kell legyen, és a padding sem számít bele.
 
 Ha belszámoljuk a bordert is és a paddinget is, akkor túlmehetünk a 100% szélességnél! Ilyenkor egymás alá töri őket a layout motor. A megoldás css3-ban a `calc()`: `width: calc(50%-2px)`;
@@ -137,6 +138,14 @@ Nincs mindent támogató böngésző, biztosítani kell a lehető legjobb tartal
 > - Ha egy böngésző egyáltalán nem ismeri a `@supports` blokkot, a feltételtől függetlenül figyelmen kívül hagyja a tartalmát.
 > - Fontos figyelni arra, hogy a `@supports-`os szabály legyen később (erősebb).
 
+```css
+@supports (display: grid) { 
+	.main { 
+		display: grid; 
+	} 
+}
+```
+
 **vendor prefixek:** a böngészőgyártók megegyeztek abban, hogy *minden új propertyt prefixszel látnak el, amíg nem véglegesedik a specifikációjuk*, hogy elkerüljék a névütközést a később "szabványra emelkedő" verzióval.
 - [c] Redundánsak, könnyű őket elrontani
 - [c] Nehéz debugolni a viselkedést 
@@ -144,9 +153,9 @@ Nincs mindent támogató böngésző, biztosítani kell a lehető legjobb tartal
 - Rengeteg helyről érkezhetnek a stíluslapok
 	1. \<link> tag
 	2. `@import` egy másik css fájlra hivatkozva
-	3. \<stlye> tag (*HTML*-ben megadott CSS szabályok)
-	4. `style` atribútum (tag-re téve közvetlenül)
-Valamilyen súlyozást kell alkalmazni, hogy az ütközések esetén eldöntsük, melyik stíluslap a fontsabb.
+	3. \<style> tag (*HTML*-ben megadott CSS szabályok)
+	4. `style` attribútum (tag-re téve közvetlenül)
+Valamilyen súlyozást kell alkalmazni, hogy az ütközések esetén eldöntsük, melyik stíluslap a fontosabb.
 ### Súlyozás
 1. Fontosság
 	- Fontos, ami `!important`, minden más nem fontos.
@@ -183,7 +192,7 @@ mellé, vagy „Z irányban” egymás fölé tenni. Ezek egyrészt <mark style=
 A `position` tulajdonság átállításával kivehetjük az elemet a normál folyamból, és általunk megadott koordináták mentén helyezhetjük el.
 - Lehetséges értékei: `static, relative, absolute, fixed`
 	- <mark style="background: #FFF3A3A6;">abban különböznek egymástól, hogy mihez képest értelmezzük a koordinátákat.</mark>
-#### `position:static`
+#### `position: static`
 Ez az alapértelmezett. Ekkor **az elem a normál dokumentumfolyam része**.
 - [!] A `top, right, bottom, left, z-index` tulajdonságok <mark style="background: #ABF7F7A6;">hatástalanok</mark>
 	- Akkor szoktuk beállítani kézzel, ha *felül akarunk írni* valamit.
@@ -215,10 +224,10 @@ Az elem **eltolása a normál folyam szerinti helyéhez képest**
 > <mark style="background: #CACFD9A6;">Ha ügyelünk arra, hogy a komponens gyökere helyesen működjön a normál folyam részeként, és arra alapozzuk a koordinátarendszert, többnyire megússzuk a karbantartási problémákat.</mark>
 #### `position: fixed`
 **Mint az absolute, de itt az elem akkor sem mozog az oldallal, ha elpörgetik.**
-A top, left stb. koordinátarendszere: a legközelebbi szülő, amin a transformbármire be van állítva, ha nincs ilyen, akkor a böngészőablak belső széle.
+A top, left stb. koordinátarendszere: a legközelebbi szülő, amin a transform bármire be van állítva, ha nincs ilyen, akkor a böngészőablak belső széle.
 
 #### `z-index`
- - [!] `position: static`-tól eltérő beállítás esetén minden elem új rétegre kerül.
+- [!] `position: static`-tól eltérő beállítás esetén minden elem új rétegre kerül.
  Ezeknek a sorrendjét kezeli a `z-index`. **A nagyobb értékű kitakarja a kisebb értékűt**.
  - Megadhatunk negatív értéket is.
  - Alapkértelmezetten: `auto`: <mark style="background: #CACFD9A6;">a HTML-ben később következő elem kitakarja a korábban szereplőt.</mark>

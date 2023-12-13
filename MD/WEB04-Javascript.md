@@ -1,8 +1,8 @@
 Változatok:
-JScript, ECMAScript, ActionScript, TypeScript, ...
+JavaScript, ActionScript, TypeScript, ...
 Feladata az **interaktivitás és viselkedés** leírása.
 
-A java és a JavaScript mindenben eltér. A JS:
+A Java és a JavaScript mindenben eltér. A JS:
 - dinamikusan típusos,
 - gyengén típusos
 - forráskódból töltődik be, és
@@ -10,7 +10,6 @@ A java és a JavaScript mindenben eltér. A JS:
 ### Nyelvi alapok
 A \<script> elemet mindig explicit záró címkével használjuk. Segítségével HTML fájlbe is kerülhet JS kód, bár nem célszerű.
 ![[JS-nyelvi-elemek.png]]
-
 #### Definiált típusok:
 `number, bigint, string, boolean, undefined, null, symbol, Object, Function`
 
@@ -23,14 +22,14 @@ Létezik **strict mód**, melnyek bekapcsolásával a `var` elhagyása hibát er
 	-  Ha összeadunk két változót, előfordulhat, hogy az egyikben string a másikban pedig number szerepel.
 
 Az == csak az értéket hasonlít össze, míg az === egyenlőség a típus infót is ellenőrzi.
-- [!] Ha egy változók értékadás nélkül hozunk létre, akkor az értéke `undefined` lesz, és a típusa is `undefined` lesz.
+- [!] Ha egy változót értékadás nélkül hozunk létre, akkor az értéke `undefined` lesz, és a típusa is `undefined` lesz.
 - [i] Az **undefined** típua **undefined**
 - [!] A **null** viszont egy **Object** 
 ##### Konstanok
 - `const` kulcsszó.
 - Létrehozásakor az **értéket is meg kell adni**
 ##### Változók láthatósága
-**function scoping:** A `var`-ral létrehozott változók a<mark style="background: #FFF3A3A6;">z egész függvényen belül </mark>láthatóak
+**function scoping:** A `var`-ral létrehozott változók az <mark style="background: #FFF3A3A6;">egész függvényen belül </mark>láthatóak
 **block scoping:** A `let`-tel létrehozott változók viszont <mark style="background: #FFF3A3A6;">csak a blokkon belül</mark> láthatóak
 ##### Truthy, Falsey
 **Minden bool-lá** alakítható!
@@ -95,19 +94,19 @@ for( var sz in szinek ) {
 }
 ```
 ##### Ciklusok
-`for..in`: az objektumon található<mark style="background: #FFF3A3A6;"> tulajdonságok nevén halad végig</mark>
+`for..in`: az objektumon található <mark style="background: #FFF3A3A6;">tulajdonságok nevén halad végig</mark>
 `for..of`: **iterátor** segítségével veszi sorra a tömb értékeit (kulcs-érték párokat nem olvas ki (?))
 ##### Függvények:
 **Nem** lehet megadni a:
-- paraméterek típusát
-- visszatérési érték típusát
+- paraméterek *típusát*
+- *visszatérési érték típusát*
 
 **Nem** okoz gondot, ha eltér a híváskor a paraméterek száma a deklarációhoz képest.
 - Kevesebb esetén a nem definiáltak értéke `undefined` lesz.
 - Több esetén figyelmen kívül hagyja.
-- Függvény híváskor a<mark style="background: #FFB86CA6;"> paraméterekre névvel nem lehet hivatkozni, ezért csak a paraméter lista végéről tudunk elhagyni elemeket.</mark>
+- Függvény híváskor a <mark style="background: #FFB86CA6;">paraméterekre névvel nem lehet hivatkozni, ezért csak a paraméter lista végéről tudunk elhagyni elemeket.</mark>
 - [!] **Nincs overload!**
-	- ha két azonos hevű függvény van, akkor a később deklarált fog nyerni.
+	- ha két azonos nevű függvény van, akkor a később deklarált fog nyerni.
 - [b] alapértelmezett értéket viszont *lehet adni* a függvénynek.
 
 <mark style="background: #FFF3A3A6;">A függvény is egy teljes értékű típus!</mark>
@@ -115,9 +114,9 @@ for( var sz in szinek ) {
 - Arra viszont nekünk kell figyelni, hogy tényleg függvény-e a paraméter.
 #### Scope
 Böngészőben futtatott JavaScript kód esetén a `window` objektum segítségével hivatkozhatunk az oldalhoz tartozó ablakra vagy keretre (**frame**).
-- Rengeteg általános tulajdonság, metódos, és esemény definiálva van rajta keresztül.
+- Rengeteg általános tulajdonság, metódus, és esemény definiálva van rajta keresztül.
 
-- [l] A `var`-ral létrehozott változók amik nincsenek függvénbe zárva, a **window** objektumon jönnek létre.
+- [l] A `var`-ral létrehozott változók amik nincsenek függvénybe zárva, a **window** objektumon jönnek létre.
 	- A függvények is a **window** objektumra kerülnek.
 - [l] <mark style="background: #FFF3A3A6;">Nincs közvetlen lehetőség a privát és publikus tagok megjelölésére.</mark>
 - A változók megtalálása a legmélyebb szintről felfelé történik.
@@ -210,7 +209,7 @@ Ha a fában több elemnél is feliratkozunk például a kattintás eseményre, a
  `stopPropagation()`-el le is állíthatjuk ezt a felgyűrűzést.
 ### Állapotkezelési megoldások
 - A cookie-kal gondok vannak, lásd [[WEB01-Webes Architektúra, HTTP, HTML, HTTPS#Állapotmegőrzés]]
-- [c] Több böngésző ablakban egy időben nehezen használható (HTTP kérésekhez kötődik)
+- [c] Több böngésző ablakban egy időben nehezen használható (HTTP kérésekhez kötődik)
 - Megoldás: **Web Storage**
 	- *kulcs-érték* párok tárolására találták ki.
 		- más típusú értékek automatikusan stringre konvertálódnak
@@ -267,20 +266,20 @@ Kliensoldali gyorsítótárazásra, teljes offline működésre nagyon hasznos.
 - [c] Nem tud szerveroldali adatbázissal szinkronizálni
 - [c] Nem támogatott a szabadszöveges keresés, nincs `LIKE` operátor
 ##### History API
-- [n] A teljes oldalt nem akarjuk frissítani, de működnie kellene a böngésző Back/Forward gombjainak.
+- [n] A teljes oldalt nem akarjuk frissíteni, de működnie kellene a böngésző Back/Forward gombjainak.
 
-**Hol tároljuk az állapotot**?:
-- Bookmardkolható az állapot? - *URL*
+**Hol tároljuk az állapotot?**:
+- Bookmarkolható az állapot? - *URL*
 - A szerveroldalon is szükség van rá? - *URL, hidden field, cookie*
 - Kis mennyiségű, egyszerű adat?: - *DOM Storage*
-- Nagyobb mennyiségű, vagy byonolultabb lekérdezések? - *IndexedDB*
+- Nagyobb mennyiségű, vagy bonyolultabb lekérdezések? - *IndexedDB*
 - Navigációval összefüggő állapotot kell tárolni? - *History API*
 
 **Biztonság szempontjából**:
 - [!] A tárolt adatokat bárki láthatja - **titkosítani kell**
 - [!] Bárki módosíthatja - **integritásvédelem!**
 
- **Megbízhatóság**:
+**Megbízhatóság**:
  - [!] Az adatot bárki törölheti teljes egészében, vagy részében - **fallback**
  - [!] A kvóta limitet elérhetjük
  - [!] A felhasználó bármikor megnyithat több böngésző ablakot.
@@ -380,7 +379,7 @@ import {sayHi} from './sayHi.js';
 alert(sayHi); // function...
 sayHi('Gábor'); // Hello, Gábor!
 ```
-- Az import direktíva a `./sayHi.js` útvonalról betölti modult, és hozzárendeli az exportált `sayHi` függvényt a változóhoz.
+- Az import direktíva a `./sayHi.js` útvonalról betölti a modult, és hozzárendeli az exportált `sayHi` függvényt a változóhoz.
 
 ##### new, this
 A konstruktor függvény egy normál függvény.
@@ -403,6 +402,7 @@ A new egy **objektumot** hoz létre.
 
 Ha kézzel beleírjuk a `return`-t, akkor a megadott objektummal tér vissza.
 - [!] Ha nem objektum szerepel a return mögött (üres vagy primitív típus), akkor a `this`-t adja vissza.
+
 **Metódust is lehet a konstruktor függvényben definiálni**:
 ```js
 function User(name) {
@@ -415,9 +415,9 @@ function User(name) {
 let gabor = new User("Gábor");
 gabor.sayHi(); // My name is: Gábor
 ```
-###### Gondok a this-sel.
+###### Gondok a this-sel:
 Előfordul, hogy a `this` kulcsszó nem arra az objektumra mutat, amin belül használjuk.
-Például egy eseménykezelőben a `this` a DOM elemre mutat. A hibás elkerülés érdekében ezért a `this` <mark style="background: #FFF3A3A6;">használatát kerülni szokás, és az osztály tagjait egy másik változón keresztül élrjük el </mark> (pl `that, self`)
+Például egy eseménykezelőben a `this` a DOM elemre mutat. A hiba elkerülése érdekében ezért a `this` <mark style="background: #FFF3A3A6;">használatát kerülni szokás, és az osztály tagjait egy másik változón keresztül élrjük el </mark> (pl `that, self`)
 
 ```js
 function User(name) {
@@ -465,8 +465,8 @@ var func = () => ({foo: 1});
 
 > [!Warning] Az Arrow functionnek nincs saját this-e!
 > 
-> JavaScriptben minden függvénynek van saját this-e, ami időnként megnehezíti a kódolást (amint feljebb láttuk a gondoknál)
-> - Arrow function esetén **nincs saját this**, tehát nem lehet átállítani, hogy magára mutasson.
+> JavaScriptben a legtöbb függvénynek van saját this-e, ami időnként megnehezíti a kódolást (amint feljebb láttuk a gondoknál)
+> - Arrow function esetén viszont **nincs saját this**, tehát nem lehet átállítani, hogy magára mutasson.
 
 ```js
 //Arrow functionben használható a this:
@@ -494,7 +494,7 @@ Létrehoz egy `User` nevű függvényt, ami az osztály deklaráció eredménye 
 - [p]  class-t csak `new`-val lehet hívni.
 - [p] Ha kiíratjuk szövegesen az osztályt, az class-al kezdődik.
 - [p]  Mindig strict módban futnak
-- Nem lehet végigiterálni a metódusain
+- [i] Nem lehet végigiterálni a metódusain
 
 ```js
 //Getter/setter használata
@@ -531,7 +531,7 @@ console.log(cp instanceof ColorPoint); // true
 console.log(cp instanceof Point); // true
 ```
 ### Promise
-**A JavaScript alapvetően aszinkron**
+**A JavaScript alapvetően aszinkron**.
 - [b] A Promise egy olyan objektum, ami majd a jövőben visszaad egy értéket, de nem most. Emiatt tökéletes *aszinkron* kérések kezelésére.
 Három állapota van:
 1. *Pending* - függőben van
@@ -540,9 +540,9 @@ Három állapota van:
 Mindig Pendig állapotból indul és Fulfilled vagy Rejected állapotban ér véget.
 #### Eredmény feldolgozása:
 `.then(success, error)`
-	- Akkor hívódik meg, ha lefutott a Promise
-	- Ha sikeresen futott le, akkor a `success` handler hívódik meg
-	- Ha sikerteleül, akkor az `error`
+	- Akkor hívódik meg, ha lefutott a Promise.
+	- Ha sikeresen futott le, akkor a `success` handler hívódik meg.
+	- Ha sikerteleül, akkor az `error`.
 `.catch(f)`
 	- Csak akkor fut le, ha a Promise hibával tért vissza.
 `.finally(f)`
@@ -559,7 +559,7 @@ learnMobWeb.finally( () => /* Stop loading */ )
 ```
 
 `Promise.all(promises)`:  megvárja, hogy az összes befejeződjön
-`Promise.allSettled(promises)`: Megvárja, hogy az összes Promise befejeződjön és visszaadja, hogy melyik voltsikeres és melyik hibás.
+`Promise.allSettled(promises)`: Megvárja, hogy az összes Promise befejeződjön és visszaadja, hogy melyik volt sikeres és melyik hibás.
 `Promise.race(promises)`: Csak az első Promise-t várja meg és annak eredményét adja vissza.
 `Promise.any(promises)`: Az első sikeresen befejeződött Promise-ra vár.
 ### Async/ await
@@ -580,12 +580,16 @@ async function f() {
 f();
 ```
 
+
+> [!Quote] .then és await különbségek
+> "While `.then` is used for handling promises in a chained manner, `await` is used within `async` functions to pause execution until a promise is settled, providing a more concise and readable syntax for handling asynchronous operations."
+
 ### Fetch API
 `fetch()` segítségével hálózati kéréseket küldhetünk a szerver fele. Korábban ezt csak az `XmlHttpRequest`-el tudtuk elérni.
-Támogatja a **CORS**-t, tehát<mark style="background: #FFF3A3A6;"> tetszőleges szerver felé indíthatunk kéréseket</mark>, és `Promise`-sel tér vissza.
-- [!]  A Fetch API-ban a Promise csak akkor reject-elődik ha hálózati hiba van. Egyébként pedig státuszkódtól függetlenül sikeresen tér vissza, ha a szerver válaszolt.
+Támogatja a **[[WEB05-jQuery-ajax-websocket#CORS]]**-t, tehát <mark style="background: #FFF3A3A6;">tetszőleges szerver felé indíthatunk kéréseket</mark>, és `Promise`-sel tér vissza.
+- [!]  A Fetch API-ban a Promise csak akkor reject-elődik, ha hálózati hiba van. Egyébként pedig státuszkódtól függetlenül sikeresen tér vissza, ha a szerver válaszolt.
 `let promise = fetch(url, [options])`
-- A fetch `Promise` a beépített `Response` osztályt adja vissza, amiben a szervertől visszakapott Header-ek találhatók. A válaszból a body-t egy újabb `Promise`-sal kapjuk meg, amit utána json() függvénynel parsolunk().
+- A fetch `Promise` a beépített `Response` osztályt adja vissza, amiben a szervertől visszakapott Header-ek találhatók. A válaszból a body-t egy újabb `Promise`-sal kapjuk meg, amit utána `.json()` függvénynel parsolunk.
 - Fetch példa:
 ```js
 let response = await fetch(url);
@@ -596,8 +600,6 @@ if (response.ok) { // HTTP-status 200-299
 } else {
 	alert("HTTP-Error: " + response.status);
 }
-
-
 ```
 
 Rengeteg mindent meg lehet adni az options mezőhöz, köztük a headereket, methodokat, stb.
